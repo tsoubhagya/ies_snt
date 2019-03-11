@@ -103,6 +103,11 @@ public class AdminController {
 		rolesList.add("Case Worker");
 		rolesList.add("Admin");
 		model.addAttribute("rolesList", rolesList);
+		
+		List<String> gendersList = new ArrayList<>();
+		gendersList.add("Male");
+		gendersList.add("Fe-Male");
+		model.addAttribute("gendersList", gendersList);
 	}
 
 	/**
