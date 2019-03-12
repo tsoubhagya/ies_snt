@@ -2,6 +2,8 @@ package com.usa.ri.gov.ies.admin.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,6 +123,35 @@ public class AdminServiceImpl implements AdminService {
 	public String findByEmail(String emailId) {
 		AppAccountEntity entity = appAccRepository.findByEmail(emailId);
 		return (entity == null) ? "Unique" : "Duplicate";
+	}
+
+	/**
+	 * This method is used to return All accounts details
+	 */
+	@Override
+	public List<AppAccount> findAllAppAccounts() {
+		logger.debug("findAllAppAccounts() method started");
+		List<AppAccount> models = new ArrayList<AppAccount>();
+		try {
+			// call Repository method
+			List<AppAccountEntity> entities = appAccRepository.findAll();
+
+			if (entities.isEmpty()) {
+				logger.warn("***No Accounts found in Application****");
+			} else {
+				// convert Entities to models
+				for (AppAccountEntity entity : entities) {
+					AppAccount model = new AppAccount();
+					BeanUtils.copyProperties(entity, model);
+					models.add(model);
+				}
+				logger.info("All Accounts details loaded successfully");
+			}
+		} catch (Exception e) {
+			logger.error("Exception occured in findAllAppAccounts()::" + e.getMessage());
+		}
+		logger.debug("findAllAppAccounts() method ended");
+		return models;
 	}
 
 }

@@ -103,7 +103,7 @@ public class AdminController {
 		rolesList.add("Case Worker");
 		rolesList.add("Admin");
 		model.addAttribute("rolesList", rolesList);
-		
+
 		List<String> gendersList = new ArrayList<>();
 		gendersList.add("Male");
 		gendersList.add("Fe-Male");
@@ -121,6 +121,25 @@ public class AdminController {
 	public @ResponseBody String checkEmailValidity(HttpServletRequest req, Model model) {
 		String emailId = req.getParameter("email");
 		return adminService.findByEmail(emailId);
+	}
+
+	/**
+	 * This method is used to display all app accounts in table
+	 * 
+	 * @return String
+	 */
+	@RequestMapping(value = "/viewAccounts")
+	public String viewAccounts(Model model) {
+		logger.debug("viewAccounts() method started");
+
+		//calling service layer method
+		List<AppAccount> accounts = adminService.findAllAppAccounts();
+		
+		// store accounts in model scope
+		model.addAttribute(AppConstants.APP_ACCOUNTS, accounts);
+
+		logger.debug("viewAccounts() method ended");
+		return "viewAccounts"; //view name
 	}
 
 }

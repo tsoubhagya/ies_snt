@@ -19,4 +19,6 @@ public class AppConstants {
 	public static final String REG_EMAIL_FILE_NAME="regEmailFileName";
 
 	public static final String REG_EMAIL_SUBJECT="regEmailSubject";
+
+	public static final String APP_ACCOUNTS="accounts";
 }
